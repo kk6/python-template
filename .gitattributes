@@ -1,0 +1,35 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# These files are text and should be normalized (convert CRLF to LF)
+*.py text
+*.pyi text
+*.yaml text
+*.yml text
+*.toml text
+*.ini text
+*.cfg text
+*.md text
+*.txt text
+*.json text
+*.sh text
+*.rst text
+
+# These files are binary and should be left untouched
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.pyc binary
+*.pyd binary
+*.pyo binary
+*.db binary
+*.pkl binary
+*.pickle binary
+
+# Exclude files from exporting
+.gitattributes export-ignore
+.gitignore export-ignore
+.pre-commit-config.yaml export-ignore
