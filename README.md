@@ -6,8 +6,9 @@ A modern Python project template with best practices and tools for development.
 
 - **Claude Code**: This project is designed to work with Claude Code
 - **VSCode**: Visual Studio Code is required for development
-- **Python 3.12+**: Python 3.12 or higher is required
-- **uv**: For dependency management and tool execution
+- **mise**: For Python version and tool management
+- **Python 3.12+**: Python 3.12 or higher (managed by mise)
+- **uv**: For dependency management and tool execution (managed by mise)
 
 ## Features
 
@@ -31,10 +32,10 @@ A modern Python project template with best practices and tools for development.
     - Select visibility (public/private)
     - Click "**Create repository from template**"
 
-1. **Install uv** (if not already installed):
+1. **Install mise** (if not already installed):
 
     ```bash
-    curl -LsSf https://astral.sh/uv/install.sh | sh
+    curl https://mise.jdx.dev/install.sh | sh
     ```
 
 1. **Clone your new repository**:
@@ -54,12 +55,11 @@ A modern Python project template with best practices and tools for development.
         - Update `tool.coverage.run.source`
     - Update import statements in tests
 
-1. **Create a virtual environment and install dependencies**:
+1. **Install tools and dependencies**:
 
     ```bash
-    uv venv
-    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-    uv pip install -e ".[dev]"
+    mise install  # Installs Python 3.12 and uv, creates virtual environment
+    uv sync       # Install dependencies and create virtual environment
     ```
 
 1. **Install pre-commit hooks**:
@@ -68,32 +68,64 @@ A modern Python project template with best practices and tools for development.
     pre-commit install
     ```
 
+1. **Setup Semantic Release (for automated versioning)**:
+
+    After creating your project from this template, follow these steps to
+    enable automated releases:
+
+    - Rename `.github/workflows/release.yml.example` to
+        `.github/workflows/release.yml`
+    - Verify the version setting in `pyproject.toml` is set to your desired
+        initial version (default: `0.0.0`)
+    - Commit and push your first changes using
+        [Conventional Commits](./docs/conventional-commits.md) format
+    - Your first release will be automatically created when you push to the
+        main branch
+
+For more detailed documentation, see [Development Environment Setup](./docs/development-setup.md).
+
 ## Development
 
 ### Running Tests
 
 ```bash
-uv run pytest
+mise run test
 ```
 
 ### Running Linter & Formatter
 
 ```bash
-uv run ruff check --fix .
-uv run ruff format .
+mise run lint       # Check for linting issues
+mise run format     # Format code
+mise run fix        # Fix linting issues
 ```
 
 ### Running Type Checker
 
 ```bash
-uv run ty
+mise run typecheck
 ```
 
-### Manual Pre-commit Run
+### Running All Checks
 
 ```bash
-pre-commit run --all-files
+mise run check      # Run tests, linting, and type checking
 ```
+
+### Fix and Check
+
+```bash
+mise run fix-and-check  # Fix issues, format, and run all checks
+```
+
+### Additional Commands
+
+```bash
+pre-commit run --all-files  # Run pre-commit hooks manually
+mise run clean              # Clean build artifacts and cache
+```
+
+For more detailed documentation, see [mise Tasks](./docs/mise-tasks.md).
 
 ## Project Structure
 
@@ -111,6 +143,7 @@ pre-commit run --all-files
 ├── CLAUDE.md             # Claude-specific documentation
 ├── README.md             # This file
 ├── pyproject.toml        # Project configuration
+├── .mise.toml            # mise configuration for Python and tool management
 ├── .pre-commit-config.yaml  # Pre-commit hooks configuration
 └── .gitignore            # Git ignore patterns
 ```

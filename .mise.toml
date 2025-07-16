@@ -1,0 +1,47 @@
+[tools]
+python = "3.12.10"
+uv = "latest"
+
+[env]
+_.python.venv = { path = ".venv", create = true }
+
+[settings]
+python.uv_venv_auto = true
+
+[tasks.test]
+description = "Run tests with pytest"
+run = "pytest"
+
+[tasks.lint]
+description = "Run linting with ruff"
+run = "ruff check ."
+
+[tasks.format]
+description = "Format code with ruff"
+run = "ruff format ."
+
+[tasks.typecheck]
+description = "Run type checking with ty"
+run = "ty check ."
+
+[tasks.check]
+description = "Run all checks (test, lint, typecheck)"
+depends = ["test", "lint", "typecheck"]
+
+[tasks.fix]
+description = "Fix linting issues"
+run = "ruff check . --fix"
+
+[tasks.fix-and-check]
+description = "Fix issues and run all checks"
+depends = ["fix", "format", "check"]
+
+[tasks.clean]
+description = "Clean build artifacts and cache"
+run = [
+    "rm -rf .pytest_cache",
+    "rm -rf __pycache__",
+    "find . -name '*.pyc' -delete",
+    "find . -name '*.pyo' -delete",
+    "find . -name '*~' -delete"
+]

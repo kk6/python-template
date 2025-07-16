@@ -123,7 +123,23 @@ Central configuration file containing:
 - **[tool.ruff]**: Linting and formatting rules
 - **[tool.pytest.ini_options]**: Test configuration
 - **[tool.coverage]**: Coverage reporting settings
-- **[tool.semantic_release]**: Version management
+- **[tool.semantic_release]**: Version management with uv integration
+
+### Version Management
+
+The project uses semantic-release with uv integration for automated versioning:
+
+- **Automatic versioning**: Based on conventional commit messages
+- **Lock file management**: `uv.lock` is automatically updated during releases
+- **Build integration**: Uses uv for building packages during release process
+
+Release process automatically:
+
+1. Updates package version in `pyproject.toml`
+1. Updates `__version__` in source code
+1. Updates and commits `uv.lock` file
+1. Builds package using uv
+1. Creates git tag and release
 
 ## Common Commands
 

@@ -30,7 +30,7 @@ help you get started with contributing effectively.
     ```bash
     pytest  # Run tests
     ruff check  # Check linting
-    ty  # Run type checking
+    ty check  # Run type checking
     ```
 
 For detailed setup instructions, see [Development Setup Guide](./docs/development-setup.md).
@@ -69,8 +69,8 @@ This project follows TDD principles:
 
     ```bash
     ruff check --fix  # Auto-fix issues
-    ruff format      # Format code
-    ty               # Type checking
+    ruff format       # Format code
+    ty check          # Type checking
     ```
 
 1. **Update Documentation**: Keep docs current
@@ -248,9 +248,22 @@ For detailed testing information, see [Testing Guide](./docs/testing.md).
 
 ### Automated Releases
 
+The release process is fully automated using semantic-release with uv integration:
+
+**Version Bumps:**
+
 - `feat`: Minor version bump (0.1.0 → 0.2.0)
 - `fix`: Patch version bump (0.1.0 → 0.1.1)
 - `BREAKING CHANGE`: Major version bump (0.1.0 → 1.0.0)
+
+**Release Process:**
+
+1. Version updated in `pyproject.toml` and source code
+1. `uv.lock` file automatically updated and committed
+1. Package built using uv
+1. Git tag created and GitHub release published
+
+No manual intervention required for lock file management.
 
 ## Getting Help
 

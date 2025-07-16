@@ -11,6 +11,7 @@ practices.
 ## Key Technologies
 
 - **Language**: Python 3.12+
+- **Tool Manager**: mise (for Python and uv management)
 - **Package Manager**: uv
 - **Linter/Formatter**: Ruff
 - **Type Checker**: ty
@@ -39,6 +40,7 @@ duplication and ensure single source of truth:
 
 ## Development Workflow
 
+1. Use `mise install` to set up the development environment
 1. All code changes should be tested
 1. Pre-commit hooks will automatically run on commit
 1. Follow [Conventional Commits](./docs/conventional-commits.md) format for
@@ -59,3 +61,5 @@ duplication and ensure single source of truth:
 - Keep documentation in `docs/` directory updated
 - Reference documentation files rather than duplicating content
 - Remember to update imports when the package name changes
+- Use `mise install` for environment setup instead of manual uv commands
+- Commands can be run directly (e.g., `pytest`) or with `uv run` prefix

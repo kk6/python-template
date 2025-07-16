@@ -1,0 +1,28 @@
+# After creating a new project from a template, please rename this file to .github/workflows/release.yml
+# Before your first release, verify the version setting in pyproject.toml and customize as needed
+
+name: Release
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    concurrency: release
+
+    permissions:
+      id-token: write
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Python Semantic Release
+      uses: python-semantic-release/python-semantic-release@v10
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
